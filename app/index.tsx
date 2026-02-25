@@ -34,7 +34,7 @@ export default function HomeScreen() {
                 <TouchableOpacity
                     style={styles.button}
                     activeOpacity={0.8} // Dá um leve efeito de clique
-                    onPress={() => { }}
+                    onPress={() => router.push('../screens/list-city')}
                 >
                     {/* Equivalente ao Row dentro do botão */}
                     <View style={styles.buttonContent}>
