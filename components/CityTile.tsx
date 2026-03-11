@@ -10,7 +10,8 @@ interface CityTileProps {
 }
 
 export default function CityTile({ cityName, icon, temperature, onTap }: CityTileProps) {
-  const IMAGE_URL = 'https://uxwing.com/wp-content/themes/uxwing/download/weather/weather-icon.png';
+  const IMAGE_URL = process.env.EXPO_PUBLIC_IMAGE_URL;
+ 
 
   return (
     <TouchableOpacity 
@@ -18,17 +19,14 @@ export default function CityTile({ cityName, icon, temperature, onTap }: CityTil
       onPress={onTap}
       activeOpacity={0.7}
     >
-      {/* Container flex para organizar os itens em linha (Row) */}
       <View style={styles.contentRow}>
         
-        {/* Renderizador de Imagens/SVG do Expo */}
         <Image
-          source={{ uri: IMAGE_URL }}
+          source={{ uri: `${IMAGE_URL}${icon}.svg` }}
           style={styles.icon}
-          contentFit="contain" // Equivalente ao BoxFit do Flutter
+          contentFit="contain" 
         />
 
-        {/* Nome da cidade no centro, usando flex: 1 para empurrar a temperatura para o canto */}
         <Text style={styles.cityName}>
           {cityName}
         </Text>
