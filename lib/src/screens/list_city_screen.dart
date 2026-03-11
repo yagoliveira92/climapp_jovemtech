@@ -1,4 +1,5 @@
 import 'package:climapp_flutter/src/controller/list_city_controller.dart';
+import 'package:climapp_flutter/src/screens/weather_city_screen.dart';
 import 'package:climapp_flutter/src/widgets/city_tile_widget.dart';
 import 'package:flutter/material.dart';
 
@@ -76,7 +77,16 @@ class _ListCityScreenState extends State<ListCityScreen> {
                           cityName: city.cityName,
                           icon: city.conditionSlug,
                           temperature: city.temp,
-                          onTap: () {},
+                          onTap: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => WeatherCityScreen(
+                                  weatherForecastModel: city,
+                                ),
+                              ),
+                            );
+                          },
                         );
                       },
                     );
