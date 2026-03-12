@@ -66,5 +66,9 @@
 		<string>UIInterfaceOrientationLandscapeLeft</string>
 		<string>UIInterfaceOrientationLandscapeRight</string>
 	</array>
+	<key>NSLocationWhenInUseUsageDescription</key>
+    <string>Este aplicativo precisa acessar a localização para mostrar onde você está no mapa.</string>
+    <key>NSLocationAlwaysUsageDescription</key>
+    <string>Este aplicativo precisa acessar a localização para mostrar onde você está no mapa.</string>
 </dict>
 </plist>

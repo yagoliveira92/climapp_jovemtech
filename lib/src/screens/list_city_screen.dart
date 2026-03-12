@@ -1,4 +1,5 @@
 import 'package:climapp_flutter/src/controller/list_city_controller.dart';
+import 'package:climapp_flutter/src/screens/map_screen.dart';
 import 'package:climapp_flutter/src/screens/weather_city_screen.dart';
 import 'package:climapp_flutter/src/widgets/city_tile_widget.dart';
 import 'package:flutter/material.dart';
@@ -31,6 +32,17 @@ class _ListCityScreenState extends State<ListCityScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      floatingActionButton: FloatingActionButton(
+        backgroundColor: Color(0xFF00457D),
+        foregroundColor: Colors.white,
+        child: Icon(Icons.map),
+        onPressed: () {
+          Navigator.push(
+            context,
+            MaterialPageRoute(builder: (context) => MapScreen()),
+          );
+        },
+      ),
       body: DecoratedBox(
         decoration: BoxDecoration(
           gradient: LinearGradient(
