@@ -30,7 +30,7 @@ export default function HomeScreen() {
                 <TouchableOpacity
                     style={styles.button}
                     activeOpacity={0.8}
-                    onPress={() => { }}>
+                    onPress={() => router.push('../screens/ListCity')}>
                         <View style={styles.buttonContent}>
                             <Text style={styles.buttonText}>Entrar</Text>
                             <MaterialIcons name='arrow-forward' size={25} color="black" />
