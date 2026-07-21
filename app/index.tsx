@@ -1,7 +1,7 @@
-import { MaterialIcons } from '@expo/vector-icons'; // O Expo já traz ícones embutidos!
+import MaterialIcons from '@expo/vector-icons/MaterialIcons';
 import { LinearGradient } from 'expo-linear-gradient';
-import { useRouter } from 'expo-router';
-import { Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import { useRouter } from "expo-router";
+import { Image, StyleSheet, Text, TouchableOpacity, View } from "react-native";
 
 export default function HomeScreen() {
     const router = useRouter();
@@ -12,20 +12,16 @@ export default function HomeScreen() {
             style={styles.container}
         >
             <View style={styles.content}>
-
                 <View style={{ height: 30 }} />
-
                 <Image
-                    source={require('../assets/images/logo_climapp.png')}
+                    source={require('../assets/images/Logo.png')}
                     style={styles.logo}
                     resizeMode="contain"
                 />
-
                 <Image
-                    source={require('../assets/images/ilustracao_home.png')}
+                    source={require('../assets/images/Ilustra.png')}
                     style={styles.illustration}
-                    resizeMode="contain"
-                />
+                    resizeMode='contain' />
 
                 <Text style={styles.title}>
                     Boas-vindas!
@@ -33,17 +29,16 @@ export default function HomeScreen() {
 
                 <TouchableOpacity
                     style={styles.button}
-                    activeOpacity={0.8} // Dá um leve efeito de clique
-                    onPress={() => router.push('../screens/list-city')}
-                >
-                    {/* Equivalente ao Row dentro do botão */}
-                    <View style={styles.buttonContent}>
-                        <Text style={styles.buttonText}>Entrar</Text>
-                        <MaterialIcons name="arrow-forward" size={25} color="black" />
-                    </View>
+                    activeOpacity={0.8}
+                    onPress={() => { }}>
+                        <View style={styles.buttonContent}>
+                            <Text style={styles.buttonText}>Entrar</Text>
+                            <MaterialIcons name='arrow-forward' size={25} color="black" />
+                        </View>
                 </TouchableOpacity>
 
             </View>
+
         </LinearGradient>
     );
 }
