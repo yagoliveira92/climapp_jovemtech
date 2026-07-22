@@ -1,5 +1,6 @@
 import CityTile from "@/components/CityTile";
-import { FlatList, StyleSheet, Text, View } from "react-native";
+import { LinearGradient } from "expo-linear-gradient";
+import { FlatList, StyleSheet, View } from "react-native";
 import { theme } from '../../constants/theme';
 
 const MOCK_ICON = 'https://www.gstatic.com/weather/conditions/v1/svg/mostly_clear_night_light.svg'
@@ -13,24 +14,25 @@ const MOCK_CITIES = [
 
 export default function ListCityScreen() {
     return (
-        <View style={styles.container}>
-            <Text
-                style={styles.headerTitle}>
-                Selecione uma cidade
-            </Text>
-            <FlatList
-                data={MOCK_CITIES}
-                keyExtractor={(item) => item.id}
-                renderItem={({ item }) => (
-                    <CityTile
-                        cityName={item.name}
-                        icon={item.icon}
-                        temperature={item.temperature}
-                        onTap={() => { }} />
-                )}
-                contentContainerStyle={styles.listContent}
-            />
-        </View>
+        <LinearGradient
+            colors={['#00457D', '#05051F']}
+            style={styles.container}>
+            <View style={styles.content}>
+                <View style={{height: 60}} />
+                <FlatList
+                    data={MOCK_CITIES}
+                    keyExtractor={(item) => item.id}
+                    renderItem={({ item }) => (
+                        <CityTile
+                            cityName={item.name}
+                            icon={item.icon}
+                            temperature={item.temperature}
+                            onTap={() => { }} />
+                    )}
+                    contentContainerStyle={styles.listContent}
+                />
+            </View>
+        </LinearGradient>
 
     )
 }
@@ -38,7 +40,10 @@ export default function ListCityScreen() {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: theme.colors.background,
+    },
+    content: {
+        flex: 1,
+        paddingHorizontal: 16,
     },
     headerTitle: {
         fontSize: 24,

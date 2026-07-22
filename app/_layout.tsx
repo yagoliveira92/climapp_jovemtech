@@ -1,5 +1,6 @@
 import { Stack } from "expo-router";
 import * as SplashScreen from 'expo-splash-screen';
+import { StatusBar } from 'expo-status-bar';
 
 import {
   Montserrat_400Regular,
@@ -25,19 +26,21 @@ export default function RootLayout() {
     }
   }, [fontsLoaded, error]);
 
-  if (!fontsLoaded && !error){
+  if (!fontsLoaded && !error) {
     return null;
   }
 
   return (
-    <Stack>
-      <Stack.Screen
-        name="index"
-        options={{
-          title: 'Início',
-          headerShown: false,
-        }}
+    <>
+      <StatusBar style='light' />
+      <Stack screenOptions={{ headerShown: false}}>
+        <Stack.Screen
+          name="index"
+          options={{
+            title: 'Início',
+          }}
         />
-    </Stack>
+      </Stack>
+    </>
   )
 }
