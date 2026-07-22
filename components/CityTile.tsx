@@ -1,12 +1,6 @@
+import { CityTileProps } from "@/interfaces/forecast_interfaces";
 import { Image } from "expo-image";
 import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
-
-interface CityTileProps {
-    cityName: string;
-    icon: string;
-    temperature: number;
-    onTap: () => void;
-}
 
 export default function CityTile({ cityName, icon, temperature, onTap }: CityTileProps) {
     return (
