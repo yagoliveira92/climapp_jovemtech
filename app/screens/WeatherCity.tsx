@@ -32,8 +32,17 @@ export default function WeatherCity() {
                         style={styles.mainIcon}
                         contentFit="contain"
                     />
-                    {/* <Text style={styles.mainTemp}>{weather.temp}</Text> */}
+                    <Text style={styles.mainTemp}>{weather.temp}°</Text>
+                    <Text style={styles.description}>{weather.description}</Text>
+                    <View style={styles.minMaxContainer}>
+                        <MaterialIcons name="thermostat" size={33} color="#FF5252"/>
+                        <Text style={styles.minMaxLabel}>Min/Max:</Text>
+                        <Text style={styles.minMaxValues}>
+                            {weather.forecast[0].min}° / {weather.forecast[0].max}
+                        </Text>
+                    </View>
                 </View>
+                <View style={{height: 30}} />
             </ScrollView>
         </LinearGradient>
     );

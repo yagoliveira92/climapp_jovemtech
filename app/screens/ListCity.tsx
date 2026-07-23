@@ -1,18 +1,14 @@
 import CityTile from "@/components/CityTile";
+import { MOCK_WEATHER_FORECAST } from "@/mocks/weatherForecastMock";
 import { LinearGradient } from "expo-linear-gradient";
+import { useRouter } from "expo-router";
 import { FlatList, StyleSheet, View } from "react-native";
 import { theme } from '../../constants/theme';
 
 const MOCK_ICON = 'https://www.gstatic.com/weather/conditions/v1/svg/mostly_clear_night_light.svg'
 
-const MOCK_CITIES = [
-    { id: '1', name: 'Aracaju - SE', temperature: 24, icon: MOCK_ICON, },
-    { id: '2', name: 'Santos - SP', temperature: 24, icon: MOCK_ICON, },
-    { id: '3', name: 'Xique-Xique - BA', temperature: 24, icon: MOCK_ICON, },
-    { id: '4', name: 'Lagarto - SE', temperature: 24, icon: MOCK_ICON, }
-];
-
 export default function ListCityScreen() {
+    const router = useRouter();
     return (
         <LinearGradient
             colors={['#00457D', '#05051F']}
@@ -20,14 +16,19 @@ export default function ListCityScreen() {
             <View style={styles.content}>
                 <View style={{height: 60}} />
                 <FlatList
-                    data={MOCK_CITIES}
-                    keyExtractor={(item) => item.id}
+                    data={MOCK_WEATHER_FORECAST}
+                    keyExtractor={(item) => item.cityName}
                     renderItem={({ item }) => (
                         <CityTile
-                            cityName={item.name}
-                            icon={item.icon}
-                            temperature={item.temperature}
-                            onTap={() => { }} />
+                            cityName={item.cityName}
+                            icon={MOCK_ICON}
+                            temperature={item.temp}
+                            onTap={() => {
+                                router.push({
+                                    pathname: '../screens/WeatherCity',
+                                    params: { weatherData: JSON.stringify(item)}
+                                })
+                             }} />
                     )}
                     contentContainerStyle={styles.listContent}
                 />

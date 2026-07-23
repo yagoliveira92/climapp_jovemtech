@@ -8,6 +8,7 @@ export interface ForecastDay {
 
 export interface WeatherForecast {
     cityName: string;
+    temp: number;
     date: string;
     description: string;
     conditionSlug: string;
