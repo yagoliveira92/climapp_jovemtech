@@ -3,7 +3,7 @@ import MaterialIcons from "@expo/vector-icons/MaterialIcons";
 import { Image } from "expo-image";
 import { LinearGradient } from "expo-linear-gradient";
 import { useLocalSearchParams, useRouter } from "expo-router";
-import { ScrollView, StyleSheet, Text, TouchableOpacity, View } from "react-native";
+import { FlatList, ScrollView, StyleSheet, Text, TouchableOpacity, View } from "react-native";
 
 export default function WeatherCity() {
     const router = useRouter();
@@ -38,11 +38,34 @@ export default function WeatherCity() {
                         <MaterialIcons name="thermostat" size={33} color="#FF5252"/>
                         <Text style={styles.minMaxLabel}>Min/Max:</Text>
                         <Text style={styles.minMaxValues}>
-                            {weather.forecast[0].min}° / {weather.forecast[0].max}
+                            {weather.forecast[0].min}° / {weather.forecast[0].max}°
                         </Text>
                     </View>
                 </View>
                 <View style={{height: 30}} />
+                <View style={styles.carouselContainer}>
+                    <FlatList
+                    horizontal
+                    showsHorizontalScrollIndicator={false}
+                    data={weather.forecast}
+                    keyExtractor={(item) => item.date}
+                    contentContainerStyle={{ gap: 16 }}
+                    renderItem={({item}) => (
+                        <View style={styles.forecastCard}>
+                            <Text style={styles.forecastDay}>{item.weekday}</Text>
+                            <Text style={styles.forecastDate}>{item.date}</Text>
+                            <Image
+                                source={{ uri: item.moon_phase}}
+                                style={styles.moonIcon}
+                                contentFit="contain"
+                            />
+                            <Text style={styles.forecastTemp}>
+                                {item.min}° / {item.max}°
+                            </Text>
+                        </View>
+                    )}
+                    />
+                </View>
             </ScrollView>
         </LinearGradient>
     );
