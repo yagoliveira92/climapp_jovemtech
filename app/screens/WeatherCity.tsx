@@ -11,6 +11,9 @@ export default function WeatherCity() {
     const { weatherData } = useLocalSearchParams();
     const weather: WeatherForecast = JSON.parse(weatherData as string);
 
+    const imageUrl = process.env.EXPO_PUBLIC_IMAGE_URL;
+    const moonUrl = process.env.EXPO_PUBLIC_MOON_URL;
+
     return (
         <LinearGradient
             colors={['#00457D', '#05051F']} style={styles.container}>
@@ -28,7 +31,7 @@ export default function WeatherCity() {
                 <View style={styles.mainCard}>
                     <Text style={styles.dateText}>Hoje: {weather.date}</Text>
                     <Image
-                        source={{ uri: weather.conditionSlug }}
+                        source={{ uri: `${imageUrl}${weather.conditionSlug}.svg` }}
                         style={styles.mainIcon}
                         contentFit="contain"
                     />
@@ -55,7 +58,7 @@ export default function WeatherCity() {
                             <Text style={styles.forecastDay}>{item.weekday}</Text>
                             <Text style={styles.forecastDate}>{item.date}</Text>
                             <Image
-                                source={{ uri: item.moon_phase}}
+                                source={{ uri: `${moonUrl}${item.moon_phase}.png`}}
                                 style={styles.moonIcon}
                                 contentFit="contain"
                             />

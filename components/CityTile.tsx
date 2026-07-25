@@ -3,6 +3,8 @@ import { Image } from "expo-image";
 import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
 
 export default function CityTile({ cityName, icon, temperature, onTap }: CityTileProps) {
+    const IMAGE_URL = process.env.EXPO_PUBLIC_IMAGE_URL;
+
     return (
         <TouchableOpacity
             style={styles.container}
@@ -10,7 +12,7 @@ export default function CityTile({ cityName, icon, temperature, onTap }: CityTil
             activeOpacity={0.7}>
             <View style={styles.contentRow}>
                 <Image
-                    source={{ uri: icon }}
+                    source={{ uri: `${IMAGE_URL}${icon}.svg` }}
                     style={styles.icon}
                     contentFit="contain" />
                 <Text style={styles.cityName}>

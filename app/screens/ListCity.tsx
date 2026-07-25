@@ -2,7 +2,7 @@ import CityTile from "@/components/CityTile";
 import { WeatherForecast } from "@/interfaces/forecast_interfaces";
 import { LinearGradient } from "expo-linear-gradient";
 import { useRouter } from "expo-router";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { ActivityIndicator, FlatList, StyleSheet, View } from "react-native";
 import { theme } from '../../constants/theme';
 
@@ -14,6 +14,10 @@ export default function ListCityScreen() {
 
     const listCity = ['Aracaju,SE', 'Itabaiana,SE', 'Salvador,BA', 'Curitiba,PR'];
 
+    useEffect(() => {
+        loadCities();
+    }, []);
+    
     const loadCities = async () => {
         try {
             setIsLoading(true);
