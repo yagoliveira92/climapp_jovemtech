@@ -12,7 +12,7 @@ export default function WeatherCity() {
     const weather: WeatherForecast = JSON.parse(weatherData as string);
 
     const imageUrl = process.env.EXPO_PUBLIC_IMAGE_URL;
-    const moonUrl = process.env.EXPO_PUBLIC_MOON_URL;
+    const moonUrl = process.env.EXPO_PUBLIC_MOON_PHASE_URL;
 
     return (
         <LinearGradient
