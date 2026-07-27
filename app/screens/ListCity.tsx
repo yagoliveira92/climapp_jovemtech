@@ -1,23 +1,38 @@
 import CityTile from "@/components/CityTile";
 import { WeatherForecast } from "@/interfaces/forecast_interfaces";
+import { Ionicons } from '@expo/vector-icons';
 import { LinearGradient } from "expo-linear-gradient";
 import { useRouter } from "expo-router";
 import { useEffect, useState } from "react";
-import { ActivityIndicator, FlatList, StyleSheet, View } from "react-native";
-import { theme } from '../../constants/theme';
+import { ActivityIndicator, FlatList, StyleSheet, Text, TextInput, View } from "react-native";
 
 export default function ListCityScreen() {
     const router = useRouter();
 
     const [allCities, setAllCities] = useState<WeatherForecast[]>([]);
     const [isLoading, setIsLoading] = useState(true);
+    const [filteredCities, setFilteredCities] = useState<WeatherForecast[]>([]);
+    const [searchQuery, setSearchQuery] = useState('');
 
     const listCity = ['Aracaju,SE', 'Itabaiana,SE', 'Salvador,BA', 'Curitiba,PR'];
 
     useEffect(() => {
         loadCities();
     }, []);
-    
+
+    const filterCities = (text: string) => {
+        setSearchQuery(text);
+
+        if (text === '') {
+            setFilteredCities(allCities);
+        } else {
+            const filtered = allCities.filter((city) =>
+                city.cityName.toLowerCase().includes(text.toLowerCase())
+            );
+            setFilteredCities(filtered);
+        }
+    }
+
     const loadCities = async () => {
         try {
             setIsLoading(true);
@@ -43,6 +58,7 @@ export default function ListCityScreen() {
             const listAllCities = await Promise.all(promises);
 
             setAllCities(listAllCities);
+            setFilteredCities(listAllCities);
             setIsLoading(false);
         } catch (error) {
             setIsLoading(false);
@@ -56,14 +72,36 @@ export default function ListCityScreen() {
             style={styles.container}>
             <View style={styles.content}>
                 <View style={{ height: 60 }} />
+                <View style={styles.searchContainer}>
+                    <TextInput
+                    style={styles.input}
+                    placeholder="Digite uma cidade"
+                    placeholderTextColor='#FFFFFF80'
+                    value={searchQuery}
+                    onChangeText={filterCities}
+                    />
+                    <Ionicons
+                        name='search'
+                        size={24}
+                        color='white'
+                        style={styles.searchIcon}
+                    />
+                </View>
                 {isLoading ? (
                     <View style={styles.loadingContainer}>
                         <ActivityIndicator size="large" color="#FFFFFF" />
                     </View>
                 ) : (
                     <FlatList
-                        data={allCities}
+                        data={filteredCities}
                         keyExtractor={(item) => item.cityName}
+                        ListEmptyComponent={() => (
+                            <View style={styles.emptyContainer}>
+                                <Text style={styles.emptyText}>
+                                    Nenhuma cidade encontrada para "{searchQuery}"
+                                </Text>
+                            </View>
+                        )}
                         renderItem={({ item }) => (
                             <CityTile
                                 cityName={item.cityName}
@@ -76,7 +114,6 @@ export default function ListCityScreen() {
                                     })
                                 }} />
                         )}
-                        contentContainerStyle={styles.listContent}
                     />
                 )}
             </View>
@@ -86,26 +123,45 @@ export default function ListCityScreen() {
 }
 
 const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-    },
-    content: {
-        flex: 1,
-        paddingHorizontal: 16,
-    },
-    headerTitle: {
-        fontSize: 24,
-        fontWeight: 'bold',
-        color: theme.colors.text,
-        padding: theme.spacing.md,
-    },
-    listContent: {
-        paddingHorizontal: theme.spacing.md,
-        paddingBottom: theme.spacing.lg,
-    },
-    loadingContainer: {
-        flex: 1,
-        justifyContent: 'center',
-        alignItems: 'center',
-    }
+  container: {
+    flex: 1,
+  },
+  content: {
+    flex: 1,
+    paddingHorizontal: 16,
+  },
+  searchContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    backgroundColor: 'rgba(255, 255, 255, 0.08)',
+    borderRadius: 30,
+    paddingHorizontal: 16,
+    height: 50,
+  },
+  input: {
+    flex: 1,
+    color: '#FFFFFF',
+    fontSize: 16,
+    fontFamily: 'Montserrat_400Regular',
+  },
+  searchIcon: {
+    marginLeft: 10,
+  },
+  loadingContainer: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  emptyContainer: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    paddingHorizontal: 20,
+  },
+  emptyText: {
+    color: '#FFFFFF80', 
+    fontSize: 18,
+    textAlign: 'center',
+    fontFamily: 'Montserrat_400Regular',
+  }
 });
