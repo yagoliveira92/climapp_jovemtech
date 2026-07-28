@@ -4,7 +4,7 @@ import { Ionicons } from '@expo/vector-icons';
 import { LinearGradient } from "expo-linear-gradient";
 import { useRouter } from "expo-router";
 import { useEffect, useState } from "react";
-import { ActivityIndicator, FlatList, StyleSheet, Text, TextInput, View } from "react-native";
+import { ActivityIndicator, FlatList, StyleSheet, Text, TextInput, TouchableOpacity, View } from "react-native";
 
 export default function ListCityScreen() {
     const router = useRouter();
@@ -74,11 +74,11 @@ export default function ListCityScreen() {
                 <View style={{ height: 60 }} />
                 <View style={styles.searchContainer}>
                     <TextInput
-                    style={styles.input}
-                    placeholder="Digite uma cidade"
-                    placeholderTextColor='#FFFFFF80'
-                    value={searchQuery}
-                    onChangeText={filterCities}
+                        style={styles.input}
+                        placeholder="Digite uma cidade"
+                        placeholderTextColor='#FFFFFF80'
+                        value={searchQuery}
+                        onChangeText={filterCities}
                     />
                     <Ionicons
                         name='search'
@@ -117,51 +117,73 @@ export default function ListCityScreen() {
                     />
                 )}
             </View>
+            <TouchableOpacity
+                style={styles.fab}
+                onPress={() => router.push('../screens/MapScreen')}
+            >
+                <Ionicons name="map" size={28} color="white" />
+            </TouchableOpacity>
         </LinearGradient>
 
     )
 }
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-  },
-  content: {
-    flex: 1,
-    paddingHorizontal: 16,
-  },
-  searchContainer: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    backgroundColor: 'rgba(255, 255, 255, 0.08)',
-    borderRadius: 30,
-    paddingHorizontal: 16,
-    height: 50,
-  },
-  input: {
-    flex: 1,
-    color: '#FFFFFF',
-    fontSize: 16,
-    fontFamily: 'Montserrat_400Regular',
-  },
-  searchIcon: {
-    marginLeft: 10,
-  },
-  loadingContainer: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  emptyContainer: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    paddingHorizontal: 20,
-  },
-  emptyText: {
-    color: '#FFFFFF80', 
-    fontSize: 18,
-    textAlign: 'center',
-    fontFamily: 'Montserrat_400Regular',
-  }
+    container: {
+        flex: 1,
+    },
+    fab: {
+        position: 'absolute',
+        right: 20,
+        bottom: 20,
+        backgroundColor: '#00457D',
+        width: 60,
+        height: 60,
+        borderRadius: 30,
+        justifyContent: 'center',
+        alignItems: 'center',
+        elevation: 5,
+        shadowColor: '#000',
+        shadowOffset: { width: 0, height: 2 },
+        shadowOpacity: 0.25,
+        shadowRadius: 3.84,
+    },
+    content: {
+        flex: 1,
+        paddingHorizontal: 16,
+    },
+    searchContainer: {
+        flexDirection: 'row',
+        alignItems: 'center',
+        backgroundColor: 'rgba(255, 255, 255, 0.08)',
+        borderRadius: 30,
+        paddingHorizontal: 16,
+        height: 50,
+    },
+    input: {
+        flex: 1,
+        color: '#FFFFFF',
+        fontSize: 16,
+        fontFamily: 'Montserrat_400Regular',
+    },
+    searchIcon: {
+        marginLeft: 10,
+    },
+    loadingContainer: {
+        flex: 1,
+        justifyContent: 'center',
+        alignItems: 'center',
+    },
+    emptyContainer: {
+        flex: 1,
+        justifyContent: 'center',
+        alignItems: 'center',
+        paddingHorizontal: 20,
+    },
+    emptyText: {
+        color: '#FFFFFF80',
+        fontSize: 18,
+        textAlign: 'center',
+        fontFamily: 'Montserrat_400Regular',
+    }
 });
